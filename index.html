@@ -4,30 +4,33 @@
     <title>hc5duke.com</title>
     <link href='http://fonts.googleapis.com/css?family=Crete+Round' rel='stylesheet' type='text/css'>
     <style>
-      div {
-        text-align: center;
-        margin-top: 80px;
-        font-family: 'Crete Round', cursive;
-        font-size: 64px;
+      body {
+        background-image: url(bg.jpg);
+        background-size: 100%;
+        background-attachment: fixed;
+        padding: 0;
+        margin: 0;
       }
-      a { text-decoration: none; padding: 0px 30px; color: #08f}
+      div#inside {
+        background: rgba(255, 255, 255, 0.5);
+        text-align: center;
+        font-family: 'Crete Round', cursive;
+        font-size: 96px;
+      }
+      a { text-decoration: none; padding: 0px 30px; color: #08f; min-width: 50%; display: block; }
       a:hover { background-color: #08f; color: #cff; }
       span.gray { color: #eee; }
     </style>
   </head>
   <body>
-    <div style="">
-      <p>
-        <a href="https://github.com/hc5duke">github</a><br/>
-        <a href="https://twitter.com/hc5duke">twitter</a><br/>
-        <a href="https://facebook.com/hc5duke">facebook</a><br/>
-        <a href="http://linkedin.com/in/hc5duke">linkedin</a><br/>
-      </p>
-      <p>
-        <a href="http://blog.choibean.com/">blog</a>
-        <span class="gray">/</span>
-        <a href="http://tapjoy.com/site/team#hwanjoonchoi">job</a>
-      </p>
+    <div id="inside">
+      <a href="https://github.com/hc5duke">github</a>
+      <a href="https://twitter.com/hc5duke">twitter</a>
+      <a href="https://facebook.com/hc5duke">facebook</a>
+      <a href="http://linkedin.com/in/hc5duke">linkedin</a>
+      <a href="https://plus.google.com/101463266033239627517">google+</a>
+      <a href="http://blog.choibean.com/">blog</a>
+      <a href="http://tapjoy.com/site/team#hwanjoonchoi">job</a>
     </div>
   </body>
 </html>
