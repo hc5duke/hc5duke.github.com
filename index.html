@@ -44,7 +44,8 @@
       <a class="link" href="http://tapjoy.com/site/team#hwanjoonchoi">job</a>
     </div>
     <script>
-      var validCodes = [ 97, 100, 104, 106, 107, 108, 115, 119 ],
+      var validCodes = [ 96, 97, 100, 104, 106, 107, 108, 115, 119 ],
+          minNumCode = 48, maxNumCode = 57,
           links = Array.prototype.slice.call(document.getElementsByClassName('link')),
           currentIndex = -1, minIndex = 0, maxIndex = links.length - 1,
           currentOpacity = 50, minOpacity = 0, maxOpacity = 100,
@@ -52,9 +53,9 @@
       document.onkeypress = function(event){
         var selectedLink = document.getElementById('selected_link');
         var code = event.keyCode;
-        if (code == 13 && selectedLink) {
+        if ((code == 13 || code == 111) && selectedLink) {
           location.href = selectedLink.href;
-        } else if (validCodes.indexOf(code) != -1) {
+         } else if (validCodes.indexOf(code) != -1 || minNumCode <= code && code <= maxNumCode) {
           var previousIndex = currentIndex,
               previousOpacity = currentOpacity;
           if (code == 106 || code == 115) {        // move down
@@ -65,6 +66,14 @@
             currentOpacity -= 10;
           } else if (code == 100 || code == 108) {
             currentOpacity += 10;
+          } else {
+            if (code == 96) {
+              currentOpacity = 0;
+            } else if (code == minNumCode) {
+              currentOpacity = 100;
+            } else {
+              currentOpacity = ((code - minNumCode) % 11) * 10;
+            }
           }
 
           if (currentIndex > maxIndex) currentIndex = maxIndex;
