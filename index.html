@@ -25,7 +25,7 @@
         color: #08f;
         text-shadow: #fff 0px 0px 5px;
       }
-      a:hover {
+      a#selected_link {
         background-color: rgba(0, 128, 255, 0.5);
         color: #cff;
         text-shadow: #000 1px -1px 3px;
@@ -35,13 +35,81 @@
   </head>
   <body>
     <div id="inside">
-      <a href="https://github.com/hc5duke">github</a>
-      <a href="https://twitter.com/hc5duke">twitter</a>
-      <a href="https://facebook.com/hc5duke">facebook</a>
-      <a href="http://linkedin.com/in/hc5duke">linkedin</a>
-      <a href="https://plus.google.com/101463266033239627517">google+</a>
-      <a href="http://blog.choibean.com/">blog</a>
-      <a href="http://tapjoy.com/site/team#hwanjoonchoi">job</a>
+      <a class="link" href="https://github.com/hc5duke">github</a>
+      <a class="link" href="https://twitter.com/hc5duke">twitter</a>
+      <a class="link" href="https://facebook.com/hc5duke">facebook</a>
+      <a class="link" href="http://linkedin.com/in/hc5duke">linkedin</a>
+      <a class="link" href="https://plus.google.com/101463266033239627517">google+</a>
+      <a class="link" href="http://blog.choibean.com/">blog</a>
+      <a class="link" href="http://tapjoy.com/site/team#hwanjoonchoi">job</a>
     </div>
+    <script>
+      var validCodes = [ 97, 100, 104, 106, 107, 108, 115, 119 ],
+          links = Array.prototype.slice.call(document.getElementsByClassName('link')),
+          currentIndex = -1, minIndex = 0, maxIndex = links.length - 1,
+          currentOpacity = 50, minOpacity = 0, maxOpacity = 100,
+          lastMouseX = -1, lastMouseY = -1;
+      document.onkeypress = function(event){
+        var selectedLink = document.getElementById('selected_link');
+        var code = event.keyCode;
+        if (code == 13 && selectedLink) {
+          location.href = selectedLink.href;
+        } else if (validCodes.indexOf(code) != -1) {
+          var previousIndex = currentIndex,
+              previousOpacity = currentOpacity;
+          if (code == 106 || code == 115) {        // move down
+            currentIndex = currentIndex + 1;
+          } else if (code == 107 || code == 119) { // move up
+            currentIndex = currentIndex - 1;
+          } else if (code == 97 || code == 104) {
+            currentOpacity -= 10;
+          } else if (code == 100 || code == 108) {
+            currentOpacity += 10;
+          }
+
+          if (currentIndex > maxIndex) currentIndex = maxIndex;
+          if (currentIndex < minIndex) currentIndex = minIndex;
+          if (currentOpacity > maxOpacity) currentOpacity = maxOpacity;
+          if (currentOpacity < minOpacity) currentOpacity = minOpacity;
+
+          if (currentIndex != previousIndex) {
+            if (selectedLink) selectedLink.id = '';
+            selectedLink = links[currentIndex];
+            selectedLink.id = 'selected_link';
+
+            if ((selectedLink.offsetTop - window.pageYOffset) + selectedLink.scrollHeight > window.innerHeight) {
+              window.scroll(0, window.scrollY + 300);
+            } else if ((selectedLink.offsetTop - window.pageYOffset) < 0) {
+              window.scroll(0, window.scrollY - 300);
+            }
+          }
+
+          if (currentOpacity != previousOpacity) {
+            var inside = document.getElementById('inside'),
+                opacityString = ['rgba','(255, 255, 255, ', (currentOpacity/100), ')'].join('');
+            inside.style['background-color'] = opacityString;
+          }
+        }
+      };
+      document.onmousemove = function(event){
+        if (event.x == lastMouseX && event.y == lastMouseY) {
+          return false;
+        }
+        lastMouseX = event.x;
+        lastMouseY = event.y;
+        var currentSelected = document.getElementById('selected_link')
+        var newSelected = event.target;
+        if (!currentSelected) {
+          newSelected.id = 'selected_link';
+        } else if (currentSelected != newSelected) {
+          currentSelected.id = '';
+          newSelected.id = 'selected_link';
+        }
+        var newIndex = links.indexOf(newSelected);
+        if (currentIndex != newIndex) {
+          currentIndex = newIndex;
+        }
+      };
+    </script>
   </body>
 </html>
