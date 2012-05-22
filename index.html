@@ -103,6 +103,8 @@
       };
       document.onmousemove = function(event){
         if (event.x == lastMouseX && event.y == lastMouseY || lastMouseX == -1 || lastMouseY == -1) {
+          lastMouseX = 0;
+          lastMouseY = 0;
           return false;
         }
         lastMouseX = event.x;
