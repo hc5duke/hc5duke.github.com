@@ -52,7 +52,7 @@
           currentIndex = -1, minIndex = 0, maxIndex = links.length - 1,
           currentOpacity = 50, minOpacity = 0, maxOpacity = 100,
           lastMouseX = -1, lastMouseY = -1;
-      document.onkeypress = function(event){
+      document.onkeypress = function(event) {
         var selectedLink = document.getElementById('selected_link');
         var code = event.keyCode;
         if ((code == 13 || code == 111) && selectedLink) {
@@ -102,7 +102,7 @@
           }
         }
       };
-      document.onmousemove = function(event){
+      document.onmousemove = function(event) {
         if (event.x == lastMouseX && event.y == lastMouseY || lastMouseX == -1 || lastMouseY == -1) {
           lastMouseX = 0;
           lastMouseY = 0;
